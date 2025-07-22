@@ -2,7 +2,8 @@
 
 set -e
 
-export PATH="$PATH:$(dirname $(realpath ${BASH_SOURCE[0]}))/build"
+PATH="$PATH:$(dirname "$(realpath "${BASH_SOURCE[0]}")")/build"
+export PATH
 
 fatal() {
 	>&2 echo "Error: $*"
@@ -34,7 +35,7 @@ while [ -n "$1" ]; do
 done
 
 while true; do
-	IFS='\n' read -ra ready_fds < <(poll "${!fds[@]}")
+	IFS=$'\n' read -ra ready_fds < <(poll "${!fds[@]}")
 
 	[[ "${#ready_fds[@]}" == 0 ]] && exit
 
